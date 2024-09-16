@@ -11,16 +11,28 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var image: Image?
-
+    
     var body: some View {
         VStack {
             image?
                 .resizable()
                 .scaledToFit()
+            
+            if(image == nil) {
+                ContentUnavailableView {
+                    Label("No snippets", systemImage: "swift")
+                } description: {
+                    Text("You don't have any saved snippets yet.")
+                } actions: {
+                    Button("Edit Image") {
+                        loadImage()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
         }
-        .onAppear(perform: loadImage)
     }
-
+    
     func loadImage() {
         let inputImage = UIImage(resource: .dp)
         let beginImage = CIImage(image: inputImage)
