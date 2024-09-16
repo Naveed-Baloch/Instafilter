@@ -23,20 +23,18 @@ struct ContentView: View {
 
     func loadImage() {
         let inputImage = UIImage(resource: .dp)
-        let ciImage = CIImage(image: inputImage)
+        let beginImage = CIImage(image: inputImage)
         // Apply filters
         let context = CIContext()
-        let currentFilter = CIFilter.sepiaTone()
-        currentFilter.inputImage = ciImage
-        currentFilter.intensity = 1
-        
+        let currentFilter = CIFilter.pixellate()
+        currentFilter.inputImage = beginImage
+        currentFilter.scale = 5
         // output CI Image
         guard let outputImage = currentFilter.outputImage else { return }
         
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
         let uiImage = UIImage(cgImage: cgImage)
         image = Image(uiImage: uiImage)
-
     }
 }
 
