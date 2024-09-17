@@ -8,28 +8,28 @@
 import CoreImage
 import CoreImage.CIFilterBuiltins
 import SwiftUI
+import PhotosUI
 
 struct ContentView: View {
     @State private var image: Image?
     
+    @State private var pickerItem: PhotosPickerItem?
+    @State private var selectedImage: Image?
+    
     var body: some View {
         VStack {
-            image?
+            
+            PhotosPicker("Select a picture", selection: $pickerItem, matching: .images)
+                .onChange(of: pickerItem) {
+                    Task {
+                        selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
+                    }
+                }
+            
+            selectedImage?
                 .resizable()
                 .scaledToFit()
             
-            if(image == nil) {
-                ContentUnavailableView {
-                    Label("No snippets", systemImage: "swift")
-                } description: {
-                    Text("You don't have any saved snippets yet.")
-                } actions: {
-                    Button("Edit Image") {
-                        loadImage()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-            }
         }
     }
     
@@ -40,7 +40,7 @@ struct ContentView: View {
         let context = CIContext()
         let currentFilter = CIFilter.crystallize()
         currentFilter.inputImage = beginImage
-        currentFilter.radius = 50
+        currentFilter.radius = 10
         // output CI Image
         guard let outputImage = currentFilter.outputImage else { return }
         
