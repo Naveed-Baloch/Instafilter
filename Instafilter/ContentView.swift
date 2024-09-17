@@ -30,6 +30,11 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFit()
             
+            ShareLink(
+                item: URL(string: "https://www.hackingwithswift.com")!,
+                subject: Text("Link of Site"),
+                message: Text("Pleaes open the link to Learn the Swift")
+            )
         }
     }
     
