@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D19B85B2C9B3D670031942A /* FitlerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D19B85A2C9B3D670031942A /* FitlerPickerView.swift */; };
+		1D19B85D2C9B3D940031942A /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D19B85C2C9B3D940031942A /* Filter.swift */; };
+		1D19B85F2C9B3EE40031942A /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D19B85E2C9B3EE40031942A /* Filters.swift */; };
 		1D64C94D2C96BB550015D7DB /* InstafilterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D64C94C2C96BB550015D7DB /* InstafilterApp.swift */; };
 		1D64C94F2C96BB550015D7DB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D64C94E2C96BB550015D7DB /* ContentView.swift */; };
 		1D64C9512C96BB580015D7DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D64C9502C96BB580015D7DB /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D19B85A2C9B3D670031942A /* FitlerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitlerPickerView.swift; sourceTree = "<group>"; };
+		1D19B85C2C9B3D940031942A /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		1D19B85E2C9B3EE40031942A /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		1D64C9492C96BB550015D7DB /* Instafilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instafilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D64C94C2C96BB550015D7DB /* InstafilterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstafilterApp.swift; sourceTree = "<group>"; };
 		1D64C94E2C96BB550015D7DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +102,9 @@
 			children = (
 				1D64C94C2C96BB550015D7DB /* InstafilterApp.swift */,
 				1D64C94E2C96BB550015D7DB /* ContentView.swift */,
+				1D19B85C2C9B3D940031942A /* Filter.swift */,
+				1D19B85E2C9B3EE40031942A /* Filters.swift */,
+				1D19B85A2C9B3D670031942A /* FitlerPickerView.swift */,
 				1D64C9502C96BB580015D7DB /* Assets.xcassets */,
 				1D64C9522C96BB580015D7DB /* Preview Content */,
 			);
@@ -258,7 +267,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D64C94F2C96BB550015D7DB /* ContentView.swift in Sources */,
+				1D19B85F2C9B3EE40031942A /* Filters.swift in Sources */,
+				1D19B85D2C9B3D940031942A /* Filter.swift in Sources */,
 				1D64C94D2C96BB550015D7DB /* InstafilterApp.swift in Sources */,
+				1D19B85B2C9B3D670031942A /* FitlerPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
