@@ -35,7 +35,9 @@ struct ContentView: View {
                         ContentUnavailableView("No Picture", systemImage: "photo.badge.plus", description: Text("Import a photo to get started"))
                     }
                 }
-                .onChange(of: selectedItem, loadImage)
+                .onChange(of: selectedItem){
+                    loadImage()
+                }
                 
                 Spacer()
 
@@ -75,13 +77,24 @@ struct ContentView: View {
         showingFilters = true
     }
     
-    
-    func loadImage() {
+    func loadImage(filter: CIFilter? = nil) {
         Task {
-            guard let imageData = try await selectedItem?.loadTransferable(type: Data.self) else { return }
-            guard let inputImage = UIImage(data: imageData) else { return }
+            var inputImage: UIImage?
+            if let newFilter = filter {
+                guard let outputImage = currentFilter.outputImage else { return }
+                guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
+                inputImage = UIImage(cgImage: cgImage)
+            } else {
+                guard let imageData = try await selectedItem?.loadTransferable(type: Data.self) else { return }
+                inputImage = UIImage(data: imageData)
+            }
 
+            guard let inputImage = inputImage else { return }
             let beginImage = CIImage(image: inputImage)
+            
+            if let newFilter = filter {
+                currentFilter = newFilter
+            }
             currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
             applyProcessing()
         }
@@ -101,15 +114,15 @@ struct ContentView: View {
         processedImage = Image(uiImage: uiImage)
     }
     
-    @MainActor func setFilter(_ filter: CIFilter) {
+    @MainActor
+    func setFilter(_ filter: CIFilter) {
         filterCount += 1
 
-        if filterCount >= 20 {
+        if filterCount >= 2000000 {
             requestReview()
         }
         
-        currentFilter = filter
-        loadImage()
+        loadImage(filter: filter)
     }
 }
 
