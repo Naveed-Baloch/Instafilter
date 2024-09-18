@@ -15,6 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Spacer()
                 if let processedImage {
                     processedImage
                         .resizable()
@@ -23,20 +24,22 @@ struct ContentView: View {
                 } else {
                     ContentUnavailableView("No Picture", systemImage: "photo.badge.plus", description: Text("Import a photo to get started"))
                 }
-                
-                VStack {
-                    HStack {
-                        Text("Intensity")
-                        Slider(value: $filterIntensity)
-                            .onChange(of: filterIntensity) { applyProcessing() }
+                Spacer()
+                if processedImage != nil {
+                    VStack {
+                        HStack {
+                            Text("Intensity")
+                            Slider(value: $filterIntensity)
+                                .onChange(of: filterIntensity) { applyProcessing() }
+                        }
+                        .padding(.horizontal)
+                        
+                        FilterPickerView { filter in
+                            loadImage(filter: filter)
+                        }
                     }
-                    .padding(.horizontal)
-                    
-                    FilterPickerView { filter in
-                        loadImage(filter: filter)
-                    }
+                    .padding(.bottom)
                 }
-                .padding(.bottom)
             }
             .navigationTitle("Instafilter")
             .toolbar {
