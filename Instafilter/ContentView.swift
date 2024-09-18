@@ -25,21 +25,23 @@ struct ContentView: View {
                     ContentUnavailableView("No Picture", systemImage: "photo.badge.plus", description: Text("Import a photo to get started"))
                 }
                 Spacer()
-                if processedImage != nil {
-                    VStack {
-                        HStack {
-                            Text("Intensity")
-                            Slider(value: $filterIntensity)
-                                .onChange(of: filterIntensity) { applyProcessing() }
-                        }
-                        .padding(.horizontal)
-                        
-                        FilterPickerView { filter in
-                            loadImage(filter: filter)
-                        }
+                
+                VStack {
+                    HStack {
+                        Text("Intensity")
+                        Slider(value: $filterIntensity)
+                            .onChange(of: filterIntensity) { applyProcessing() }
+                            .disabled(processedImage == nil)
                     }
-                    .padding(.bottom)
+                    .padding(.horizontal)
+                    
+                    FilterPickerView { filter in
+                        loadImage(filter: filter)
+                    }
+                    .disabled(processedImage == nil)
                 }
+                .padding(.bottom)
+                
             }
             .navigationTitle("Instafilter")
             .toolbar {
@@ -52,11 +54,12 @@ struct ContentView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
+                        Button(action: saveImage) {
+                            Image(systemName: "square.and.arrow.down")
+                        }
+                        .disabled(processedImage != nil)
+                        
                         if let processedImage {
-                            Button(action: saveImage) {
-                                Image(systemName: "square.and.arrow.down")
-                            }
-                            
                             ShareLink(item: processedImage, preview: SharePreview("Instafilter image", image: processedImage)) {
                                 Image(systemName: "square.and.arrow.up")
                             }
@@ -80,7 +83,7 @@ struct ContentView: View {
                 guard let imageData = try await selectedItem?.loadTransferable(type: Data.self) else { return }
                 inputImage = UIImage(data: imageData)
             }
-
+            
             guard let inputImage = inputImage else { return }
             let beginImage = CIImage(image: inputImage)
             
